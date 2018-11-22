@@ -6,15 +6,25 @@
   
 
   
-  <title>Ayden 学习笔记</title>
+  <title>Vue , axios 自定义请求头 token 控制台无法获取，Network 却有显示 ，解决:（Access-Control-Expose-Headers） | Ayden 学习笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Ayden 学习笔记">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="本文为原创文章，如需转载，请注明出处。 问题背景：想做注册登录 TOKEN 验证，查了一些资料，主流的验证机制 : 用户在首次登录成功时从后端获取一个 token，然后在访问 ==登陆之后才有权限== 访问的组件中，每次调用后端的 API 时，请求头中必须携带这个 token 作为验证。 涉及知识点： 前端： 跨域配置 vue axios 请求拦截器 this.$axios.interceptor">
+<meta name="keywords" content="Vue,axios,token,跨域,拦截器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue , axios 自定义请求头 token 控制台无法获取，Network 却有显示 ，解决:（Access-Control-Expose-Headers）">
+<meta property="og:url" content="http://yoursite.com/2018/11/21/Vue , axios 自定义请求头 token 控制台无法获取，Network 却有显示 ，解决:（Access-Control-Expose-Headers）/index.html">
 <meta property="og:site_name" content="Ayden 学习笔记">
+<meta property="og:description" content="本文为原创文章，如需转载，请注明出处。 问题背景：想做注册登录 TOKEN 验证，查了一些资料，主流的验证机制 : 用户在首次登录成功时从后端获取一个 token，然后在访问 ==登陆之后才有权限== 访问的组件中，每次调用后端的 API 时，请求头中必须携带这个 token 作为验证。 涉及知识点： 前端： 跨域配置 vue axios 请求拦截器 this.$axios.interceptor">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181121175305676.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2thdzE5OTUwMzAy,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181121175642312.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2thdzE5OTUwMzAy,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181121183251998.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2thdzE5OTUwMzAy,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181121185212709.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2thdzE5OTUwMzAy,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2018-11-22T03:21:55.875Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ayden 学习笔记">
+<meta name="twitter:title" content="Vue , axios 自定义请求头 token 控制台无法获取，Network 却有显示 ，解决:（Access-Control-Expose-Headers）">
+<meta name="twitter:description" content="本文为原创文章，如需转载，请注明出处。 问题背景：想做注册登录 TOKEN 验证，查了一些资料，主流的验证机制 : 用户在首次登录成功时从后端获取一个 token，然后在访问 ==登陆之后才有权限== 访问的组件中，每次调用后端的 API 时，请求头中必须携带这个 token 作为验证。 涉及知识点： 前端： 跨域配置 vue axios 请求拦截器 this.$axios.interceptor">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181121175305676.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2thdzE5OTUwMzAy,size_16,color_FFFFFF,t_70">
   
     <link rel="alternate" href="/atom.xml" title="Ayden 学习笔记" type="application/atom+xml">
   
@@ -63,9 +73,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-Vue , axios 自定义请求头 token 控制台无法获取，Network 却有显示 ，解决:（Access-Control-Expose-Headers）" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-Vue , axios 自定义请求头 token 控制台无法获取，Network 却有显示 ，解决:（Access-Control-Expose-Headers）" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/11/21/Vue , axios 自定义请求头 token 控制台无法获取，Network 却有显示 ，解决:（Access-Control-Expose-Headers）/" class="article-date">
   <time datetime="2018-11-21T03:19:33.000Z" itemprop="datePublished">2018-11-21</time>
@@ -82,8 +90,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/21/Vue , axios 自定义请求头 token 控制台无法获取，Network 却有显示 ，解决:（Access-Control-Expose-Headers）/">Vue , axios 自定义请求头 token 控制台无法获取，Network 却有显示 ，解决:（Access-Control-Expose-Headers）</a>
+    <h1 class="article-title" itemprop="name">
+      Vue , axios 自定义请求头 token 控制台无法获取，Network 却有显示 ，解决:（Access-Control-Expose-Headers）
     </h1>
   
 
@@ -128,115 +136,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-Git 版本控制" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/11/Git 版本控制/" class="article-date">
-  <time datetime="2018-11-11T06:42:56.000Z" itemprop="datePublished">2018-11-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/笔记/">笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/11/Git 版本控制/">Git 版本控制</a>
-    </h1>
+    <a href="/2018/11/11/Git 版本控制/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Git 版本控制</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><ol>
-<li>git init 用来初始化本地 Git 仓库，可进行一系列 git 操作 </li>
-<li>git init –bare 用来初始化远程 Git 裸仓库，用来记录提交的修改信息 ，不可进行一系列 git 操作</li>
-</ol>
-<h3 id="工作流-暂存区回滚"><a href="#工作流-暂存区回滚" class="headerlink" title="工作流-暂存区回滚"></a>工作流-暂存区回滚</h3><ol>
-<li>git add . 提交到暂存区</li>
-<li>git reset HEAD text.name  清空暂存区的修改</li>
-<li>git checkout – text.name 工作区回滚到修改之前
-        
-          <p class="article-more-link">
-            <a href="/2018/11/11/Git 版本控制/#more">Read More</a>
-          </p>
-        
-      
-    </li></ol></div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/11/Git 版本控制/" data-id="cjos169ch0000ck8zq7tplqen" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-PHP 会话控制" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/11/PHP 会话控制/" class="article-date">
-  <time datetime="2018-11-11T06:42:56.000Z" itemprop="datePublished">2018-11-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/笔记/">笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/11/PHP 会话控制/">PHP 会话控制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="http"><a href="#http" class="headerlink" title="http"></a>http</h3><ul>
-<li>超文本传输协议，网络协议</li>
-<li>请求和响应模式，用户请求，服务器响应</li>
-<li>最大的特点：无连接，无状态
-        
-          <p class="article-more-link">
-            <a href="/2018/11/11/PHP 会话控制/#more">Read More</a>
-          </p>
-        
-      
-    </li></ul></div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/11/PHP 会话控制/" data-id="cjos169ck0001ck8zj2zg8gfn" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/会话控制/">会话控制</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
