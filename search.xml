@@ -34,6 +34,29 @@
     </entry>
     
     <entry>
+      <title>Git 版本控制</title>
+      <link href="/2018/11/11/Git%20%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
+      <url>/2018/11/11/Git%20%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</url>
+      
+        <content type="html"><![CDATA[<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><ol><li>git init 用来初始化本地 Git 仓库，可进行一系列 git 操作 </li><li>git init –bare 用来初始化远程 Git 裸仓库，用来记录提交的修改信息 ，不可进行一系列 git 操作</li></ol><h3 id="工作流-暂存区回滚"><a href="#工作流-暂存区回滚" class="headerlink" title="工作流-暂存区回滚"></a>工作流-暂存区回滚</h3><a id="more"></a><ol><li>git add . 提交到暂存区</li><li>git reset HEAD text.name  清空暂存区的修改</li><li>git checkout – text.name 工作区回滚到修改之前</li></ol><h3 id="工作流-提交回滚"><a href="#工作流-提交回滚" class="headerlink" title="工作流-提交回滚"></a>工作流-提交回滚</h3><ol><li>git log 查看提交日志的 commit 号</li><li>git reset –hard text.commit 回滚到 commit 号对应的版本</li><li>git rm text.name 清空本地文件</li><li>git commit -m 清空仓库</li></ol><h3 id="工作流-仓库文件替换工作区和暂存区-危险操作"><a href="#工作流-仓库文件替换工作区和暂存区-危险操作" class="headerlink" title="工作流-仓库文件替换工作区和暂存区(危险操作)"></a>工作流-仓库文件替换工作区和暂存区(危险操作)</h3><ol><li>git checkout HEAD text.commit</li></ol><h3 id="工作流-正常提交"><a href="#工作流-正常提交" class="headerlink" title="工作流-正常提交"></a>工作流-正常提交</h3><ol><li>git add . 提交到暂存区</li><li>git status 查看修改状态</li><li>git commit -m ‘备注’ 将暂存区的修改提交到本地仓库的操作</li><li>git push origin master 提交到远程仓库</li></ol><h3 id="ssh-key"><a href="#ssh-key" class="headerlink" title="ssh key"></a>ssh key</h3><ol><li>ssh-keygen -t rsa -P ‘’ 本地生成 rsa 公钥</li><li>公钥复制到 github ssh setting</li><li>ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a> 判断是否为通</li></ol><h3 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h3><ol><li>git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:xxxxxxxx.git</li><li>git push -u origin master (-u) 默认本地 master 和远程本地 master 关联</li><li>git remote remove origin 取消远程关联</li></ol><h3 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h3><ol><li>远程代码拷贝到本地</li><li>git clone ig:reps/docs_couple_training.git</li></ol><h3 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h3><ol><li>git tag 查看所有标签</li><li>git tag name 创建标签</li><li>git tag -a name -m ‘comment’ 指定提交信息</li><li>git tag -d name 删除标签</li><li>git push origin name 标签发布</li></ol><h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><ol><li>git branch 查看分支</li><li>git branch ayden 创建 ayden 分支</li><li>git checkout 切换分支</li><li>git merge ayden 将 ayden 分支的修改合并到 master</li><li>git branch -d ayden 删除 ayden 分支</li></ol><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li>工作流：<ul><li>工作区-&gt;暂存区-&gt;版本库-&gt;远程仓库</li></ul></li><li>初始化：<ul><li>git init -&gt; git add -&gt; git commit </li></ul></li><li>远程仓库：<ul><li>git remote add -&gt; git pull -&gt; git push -&gt; git clone</li></ul></li><li>分支管理：<ul><li>git branch -&gt; git checkout -&gt; git merge</li></ul></li><li>标签管理：<ul><li>git tag -&gt; git push</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>PHP 会话控制</title>
       <link href="/2018/11/11/PHP%20%E4%BC%9A%E8%AF%9D%E6%8E%A7%E5%88%B6/"/>
       <url>/2018/11/11/PHP%20%E4%BC%9A%E8%AF%9D%E6%8E%A7%E5%88%B6/</url>
@@ -53,29 +76,6 @@
             <tag> PHP </tag>
             
             <tag> 会话控制 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Git 版本控制</title>
-      <link href="/2018/11/11/Git%20%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
-      <url>/2018/11/11/Git%20%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</url>
-      
-        <content type="html"><![CDATA[<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><ol><li>git init 用来初始化本地 Git 仓库，可进行一系列 git 操作 </li><li>git init –bare 用来初始化远程 Git 裸仓库，用来记录提交的修改信息 ，不可进行一系列 git 操作</li></ol><h3 id="工作流-暂存区回滚"><a href="#工作流-暂存区回滚" class="headerlink" title="工作流-暂存区回滚"></a>工作流-暂存区回滚</h3><a id="more"></a><ol><li>git add . 提交到暂存区</li><li>git reset HEAD text.name  清空暂存区的修改</li><li>git checkout – text.name 工作区回滚到修改之前</li></ol><h3 id="工作流-提交回滚"><a href="#工作流-提交回滚" class="headerlink" title="工作流-提交回滚"></a>工作流-提交回滚</h3><ol><li>git log 查看提交日志的 commit 号</li><li>git reset –hard text.commit 回滚到 commit 号对应的版本</li><li>git rm text.name 清空本地文件</li><li>git commit -m 清空仓库</li></ol><h3 id="工作流-仓库文件替换工作区和暂存区-危险操作"><a href="#工作流-仓库文件替换工作区和暂存区-危险操作" class="headerlink" title="工作流-仓库文件替换工作区和暂存区(危险操作)"></a>工作流-仓库文件替换工作区和暂存区(危险操作)</h3><ol><li>git checkout HEAD text.commit</li></ol><h3 id="工作流-正常提交"><a href="#工作流-正常提交" class="headerlink" title="工作流-正常提交"></a>工作流-正常提交</h3><ol><li>git add . 提交到暂存区</li><li>git status 查看修改状态</li><li>git commit -m ‘备注’ 将暂存区的修改提交到本地仓库的操作</li><li>git push origin master 提交到远程仓库</li></ol><h3 id="ssh-key"><a href="#ssh-key" class="headerlink" title="ssh key"></a>ssh key</h3><ol><li>ssh-keygen -t rsa -P ‘’ 本地生成 rsa 公钥</li><li>公钥复制到 github ssh setting</li><li>ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a> 判断是否为通</li></ol><h3 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h3><ol><li>git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:xxxxxxxx.git</li><li>git push -u origin master (-u) 默认本地 master 和远程本地 master 关联</li><li>git remote remove origin 取消远程关联</li></ol><h3 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h3><ol><li>远程代码拷贝到本地</li><li>git clone ig:reps/docs_couple_training.git</li></ol><h3 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h3><ol><li>git tag 查看所有标签</li><li>git tag name 创建标签</li><li>git tag -a name -m ‘comment’ 指定提交信息</li><li>git tag -d name 删除标签</li><li>git push origin name 标签发布</li></ol><h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><ol><li>git branch 查看分支</li><li>git branch ayden 创建 ayden 分支</li><li>git checkout 切换分支</li><li>git merge ayden 将 ayden 分支的修改合并到 master</li><li>git branch -d ayden 删除 ayden 分支</li></ol><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li>工作流：<ul><li>工作区-&gt;暂存区-&gt;版本库-&gt;远程仓库</li></ul></li><li>初始化：<ul><li>git init -&gt; git add -&gt; git commit </li></ul></li><li>远程仓库：<ul><li>git remote add -&gt; git pull -&gt; git push -&gt; git clone</li></ul></li><li>分支管理：<ul><li>git branch -&gt; git checkout -&gt; git merge</li></ul></li><li>标签管理：<ul><li>git tag -&gt; git push</li></ul></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> 笔记 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Git </tag>
             
         </tags>
       
