@@ -81,9 +81,9 @@ methods: {
       }
 ```
 请求之后：
-![在这里插入图片描述](1_Vue_header/setHeaderSuccess.png)
+![在这里插入图片描述](1-Vue-header/setHeaderSuccess.png)
 是不是以为搞定了？接下来是见证奇迹的时刻 ~
-![在这里插入图片描述](1_Vue_header/whereToken.png)
+![在这里插入图片描述](1-Vue-header/whereToken.png)
 接下来是我反反复复的各种验证，无效！虽然在报文体中可以取到 `token` 不影响业务逻辑完成功能。
 以下也可以用：
 ```javascript
@@ -102,7 +102,7 @@ header('Access-Control-Expose-Headers: token');  // 坑！服务器 headers 白�
 **响应首部 Access-Control-Expose-Headers 列出了哪些首部可以作为响应的一部分暴露给外部**
 我理解的意思就是可以供外部去操作，
 参考 MDN 的解释-> [Access-Control-Expose-Headers](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Access-Control-Expose-Headers)
-![在这里插入图片描述](1_Vue_header/six.png)
+![在这里插入图片描述](1-Vue-header/six.png)
 除此之外，还需要在后端设置
 ####   后端设置如下：
 
@@ -111,7 +111,7 @@ header('Access-Control-Expose-Headers: token');  // 坑！服务器 headers 白�
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Connection, User-Agent, Cookie, token');
 ```
 #### 上成功图示：
-![在这里插入图片描述](1_Vue_header/success.png)
+![在这里插入图片描述](1-Vue-header/success.png)
 ### 总结：
 
 ```javascript
