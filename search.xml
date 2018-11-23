@@ -1,41 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title><![CDATA[Vue , axios 自定义请求头 token 控制台无法获取，Network 却有显示 ，解决:（Access-Control-Expose-Headers）]]></title>
-    <url>%2F2018%2F11%2F21%2FVue%20%2C%20axios%20%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%B7%E6%B1%82%E5%A4%B4%20token%20%E6%8E%A7%E5%88%B6%E5%8F%B0%E6%97%A0%E6%B3%95%E8%8E%B7%E5%8F%96%EF%BC%8CNetwork%20%E5%8D%B4%E6%9C%89%E6%98%BE%E7%A4%BA%20%EF%BC%8C%E8%A7%A3%E5%86%B3%3A%EF%BC%88Access-Control-Expose-Headers%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[本文为原创文章，如需转载，请注明出处。问题背景：想做注册登录 TOKEN 验证，查了一些资料，主流的验证机制 : 用户在首次登录成功时从后端获取一个 token，然后在访问 ==登陆之后才有权限== 访问的组件中，每次调用后端的 API 时，请求头中必须携带这个 token 作为验证。涉及知识点：前端：跨域配置vue axios 请求拦截器 this.$axios.interceptors.requestvue axios 响应拦截器 this.$axios.interceptors.response后端：跨域配置响应头配置：Access-Control-Expose-Headers: &lt;header-name&gt;, &lt;header-name&gt;, ...问题描述：后端代码如下：前端访问后端的 API 时，后端设置响应头(因为这里只做测试，所以代码比较简洁)：12345678class Test extends Controller&#123; public function index() &#123; header('token:123123'); return "响应头设置成功"; &#125;&#125;前端请求如下：请求拦截：先查找 localStorage 是否有 token字段，有则添加到请求头响应拦截：获取响应头中的 token 字段，并存储到localStorage代码如下：test 组件（test.vue）1234567891011121314151617181920212223242526272829303132333435methods: &#123; sendAjax: function () &#123; // 配置拦截器，中间件思想。白话：use 给请求之前做的事，可以是多件，可以 use 多次 this.$axios.interceptors.request.use((config) =&gt; &#123; console.log('请求拦截器：') console.log(config) // 设置请求头，在这里插入代码片，类似 set-cookie var token = localStorage.getItem('token'); if(token)&#123; // config.headers = &#123;&#125; 这样设置，是覆盖 config.headers['token'] = token; // 这样设置，是添加 &#125; return config &#125;); // 响应拦截器 this.$axios.interceptors.response.use((res) =&gt; &#123; console.log('响应拦截器：') console.log(res) // 获取服务器的响应头 if(res.headers.token)&#123; var token = res.headers.token; console.log(token) localStorage.setItem('token',token) &#125; return res &#125;); // url 根据自己后端的来，这里是我自己通过内网穿透的后端接口，发生跨域 this.$axios.post('http://plug.natapp1.cc/api/v1/users/test').then( res =&gt; &#123; console.log('有响应'); console.log(res); &#125; ) &#125;请求之后：是不是以为搞定了？接下来是见证奇迹的时刻 ~接下来是我反反复复的各种验证，无效！虽然在报文体中可以取到 token 不影响业务逻辑完成功能。以下也可以用：12345if(res.data.token)&#123; var token = res.data.token; console.log(token) localStorage.setItem('token',token) &#125;但是，真的很想知道为什么：Network 有显示 ，说明请求头设置成功，但是为什么拿不到？最重要的是！它也不给我报错！！！！看了很多技术博客，找到一个与Access-Control-Allow-Headers很像的属性：于是设置成这样：1header('Access-Control-Expose-Headers: token'); // 坑！服务器 headers 白名单，可以让客户端进行访问操作的属性MDN 给的解释是这样的：响应首部 Access-Control-Expose-Headers 列出了哪些首部可以作为响应的一部分暴露给外部我理解的意思就是可以供外部去操作，参考 MDN 的解释-&gt; Access-Control-Expose-Headers除此之外，还需要在后端设置后端设置如下：12header('Access-Control-Expose-Headers: token'); // 坑！服务器 headers 白名单，可以让客户端进行访问header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Connection, User-Agent, Cookie, token');上成功图示：总结：12header('Access-Control-Allow-Headers: token');header('Access-Control-Expose-Headers: token')对比两个 header 字段：我比较浅显的做了下区别就是：一个是：允许请求头中携带，另一个是：允许访问携带的该属性。就像客人来了家里做客，一个是：我允许你来我家，一个是：我允许你来我家里吃饭、睡觉 …（如有理解偏差请指正）本文有参考阮大哥的 跨域资源共享 CORS 详解]]></content>
+<search> 
+  
+    
+    <entry>
+      <title>Vue , axios 自定义请求头 token 控制台无法获取，Network 却有显示 ，解决:（Access-Control-Expose-Headers）</title>
+      <link href="/2018/11/21/Vue%20,%20axios%20%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%B7%E6%B1%82%E5%A4%B4%20token%20%E6%8E%A7%E5%88%B6%E5%8F%B0%E6%97%A0%E6%B3%95%E8%8E%B7%E5%8F%96%EF%BC%8CNetwork%20%E5%8D%B4%E6%9C%89%E6%98%BE%E7%A4%BA%20%EF%BC%8C%E8%A7%A3%E5%86%B3:%EF%BC%88Access-Control-Expose-Headers%EF%BC%89/"/>
+      <url>/2018/11/21/Vue%20,%20axios%20%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%B7%E6%B1%82%E5%A4%B4%20token%20%E6%8E%A7%E5%88%B6%E5%8F%B0%E6%97%A0%E6%B3%95%E8%8E%B7%E5%8F%96%EF%BC%8CNetwork%20%E5%8D%B4%E6%9C%89%E6%98%BE%E7%A4%BA%20%EF%BC%8C%E8%A7%A3%E5%86%B3:%EF%BC%88Access-Control-Expose-Headers%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<!-- build time:Fri Nov 23 2018 10:54:08 GMT+0800 (China Standard Time) --><p>本文为原创文章，如需转载，请注明出处。</p><h2 id="问题背景："><a href="#问题背景：" class="headerlink" title="问题背景："></a>问题背景：</h2><p>想做注册登录 <code>TOKEN</code> 验证，查了一些资料，主流的验证机制 : 用户在首次登录成功时从后端获取一个 <code>token</code>，然后在访问 ==登陆之后才有权限== 访问的组件中，每次调用后端的 API 时，请求头中必须携带这个 <code>token</code> 作为验证。<br><a id="more"></a></p><h2 id="涉及知识点："><a href="#涉及知识点：" class="headerlink" title="涉及知识点："></a>涉及知识点：</h2><ul><li>前端：<ul><li>跨域配置</li><li>vue axios 请求拦截器 <code>this.$axios.interceptors.request</code></li><li>vue axios 响应拦截器 <code>this.$axios.interceptors.response</code></li></ul></li><li>后端：<ul><li>跨域配置</li><li>响应头配置：<code>Access-Control-Expose-Headers: &lt;header-name&gt;, &lt;header-name&gt;, ...</code><h2 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h2><h4 id="后端代码如下："><a href="#后端代码如下：" class="headerlink" title="后端代码如下："></a>后端代码如下：</h4>前端访问后端的 API 时，后端设置响应头<br>(因为这里只做测试，所以代码比较简洁)：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    public <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        header(<span class="string">'token:123123'</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"响应头设置成功"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul></li></ul><h4 id="前端请求如下："><a href="#前端请求如下：" class="headerlink" title="前端请求如下："></a>前端请求如下：</h4><p>请求拦截：先查找 <code>localStorage</code> 是否有 <code>token</code>字段，有则添加到请求头<br>响应拦截：获取响应头中的 <code>token</code> 字段，并存储到<code>localStorage</code><br>代码如下：<br>test 组件（test.vue）<br></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">      sendAjax: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 配置拦截器，中间件思想。白话：use 给请求之前做的事，可以是多件，可以 use 多次</span></span><br><span class="line">        <span class="keyword">this</span>.$axios.interceptors.request.use(<span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'请求拦截器：'</span>)</span><br><span class="line">          <span class="built_in">console</span>.log(config)</span><br><span class="line">          <span class="comment">// 设置请求头，在这里插入代码片，类似 set-cookie</span></span><br><span class="line">          <span class="keyword">var</span> token = localStorage.getItem(<span class="string">'token'</span>);</span><br><span class="line">          <span class="keyword">if</span>(token)&#123;</span><br><span class="line">            <span class="comment">// config.headers = &#123;&#125; 这样设置，是覆盖</span></span><br><span class="line">            config.headers[<span class="string">'token'</span>] = token; <span class="comment">// 这样设置，是添加 </span></span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">return</span> config</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 响应拦截器</span></span><br><span class="line">        <span class="keyword">this</span>.$axios.interceptors.response.use(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'响应拦截器：'</span>)</span><br><span class="line">          <span class="built_in">console</span>.log(res)</span><br><span class="line">          <span class="comment">// 获取服务器的响应头</span></span><br><span class="line">          <span class="keyword">if</span>(res.headers.token)&#123;</span><br><span class="line">            <span class="keyword">var</span> token = res.headers.token;</span><br><span class="line">            <span class="built_in">console</span>.log(token)</span><br><span class="line">            localStorage.setItem(<span class="string">'token'</span>,token)</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">return</span> res</span><br><span class="line">        &#125;);</span><br><span class="line">      </span><br><span class="line"> <span class="comment">// url 根据自己后端的来，这里是我自己通过内网穿透的后端接口，发生跨域</span></span><br><span class="line"> <span class="keyword">this</span>.$axios.post(<span class="string">'http://plug.natapp1.cc/api/v1/users/test'</span>).then(</span><br><span class="line">          res =&gt; &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'有响应'</span>);</span><br><span class="line">            <span class="built_in">console</span>.log(res);</span><br><span class="line">          &#125;</span><br><span class="line">        )</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure><p></p><p>请求之后：<br><img src="https://img-blog.csdnimg.cn/20181121175305676.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2thdzE5OTUwMzAy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>是不是以为搞定了？接下来是见证奇迹的时刻 ~<br><img src="https://img-blog.csdnimg.cn/20181121175642312.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2thdzE5OTUwMzAy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>接下来是我反反复复的各种验证，无效！虽然在报文体中可以取到 <code>token</code> 不影响业务逻辑完成功能。<br>以下也可以用：<br></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(res.data.token)&#123;</span><br><span class="line">            <span class="keyword">var</span> token = res.data.token;</span><br><span class="line">            <span class="built_in">console</span>.log(token)</span><br><span class="line">            localStorage.setItem(<span class="string">'token'</span>,token)</span><br><span class="line">          &#125;</span><br></pre></td></tr></table></figure><p></p><p>但是，真的很想知道为什么：Network 有显示 ，说明请求头设置成功，但是为什么拿不到？最重要的是！它也不给我报错！！！！<br>看了很多技术博客，找到一个与<code>Access-Control-Allow-Headers</code>很像的属性：于是设置成这样：<br></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">'Access-Control-Expose-Headers: token'</span>);  <span class="comment">// 坑！服务器 headers 白名单，可以让客户端进行访问操作的属性</span></span><br></pre></td></tr></table></figure><p></p><h4 id="MDN-给的解释是这样的："><a href="#MDN-给的解释是这样的：" class="headerlink" title="MDN 给的解释是这样的："></a>MDN 给的解释是这样的：</h4><p><strong>响应首部 Access-Control-Expose-Headers 列出了哪些首部可以作为响应的一部分暴露给外部</strong><br>我理解的意思就是可以供外部去操作，<br>参考 MDN 的解释-&gt; <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Access-Control-Expose-Headers" target="_blank" rel="noopener">Access-Control-Expose-Headers</a><br><img src="https://img-blog.csdnimg.cn/20181121183251998.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2thdzE5OTUwMzAy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>除此之外，还需要在后端设置</p><h4 id="后端设置如下："><a href="#后端设置如下：" class="headerlink" title="后端设置如下："></a>后端设置如下：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">'Access-Control-Expose-Headers: token'</span>);  <span class="comment">// 坑！服务器 headers 白名单，可以让客户端进行访问</span></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Connection, User-Agent, Cookie, token'</span>);</span><br></pre></td></tr></table></figure><h4 id="上成功图示："><a href="#上成功图示：" class="headerlink" title="上成功图示："></a>上成功图示：</h4><p><img src="https://img-blog.csdnimg.cn/20181121185212709.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2thdzE5OTUwMzAy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">'Access-Control-Allow-Headers: token'</span>);</span><br><span class="line">header(<span class="string">'Access-Control-Expose-Headers: token'</span>)</span><br></pre></td></tr></table></figure><p>对比两个 header 字段：我比较浅显的做了下区别就是：<br>一个是：<strong>允许请求头中携带，另一个是：允许访问携带的该属性。</strong><br>就像客人来了家里做客，<br>一个是：<strong>我允许你来我家，一个是：我允许你来我家里吃饭、睡觉 …</strong><br>（如有理解偏差请指正）</p><p>本文有参考阮大哥的 <a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a></p><!-- rebuild by neat -->]]></content>
+      
+      
       <categories>
-        <category>爬坑总结</category>
+          
+          <category> 爬坑总结 </category>
+          
       </categories>
-      <tags>
-        <tag>Vue</tag>
-        <tag>axios</tag>
-        <tag>token</tag>
-        <tag>跨域</tag>
-        <tag>拦截器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Git 版本控制]]></title>
-    <url>%2F2018%2F11%2F11%2FGit%20%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%2F</url>
-    <content type="text"><![CDATA[初始化git init 用来初始化本地 Git 仓库，可进行一系列 git 操作git init –bare 用来初始化远程 Git 裸仓库，用来记录提交的修改信息 ，不可进行一系列 git 操作工作流-暂存区回滚git add . 提交到暂存区git reset HEAD text.name 清空暂存区的修改git checkout – text.name 工作区回滚到修改之前工作流-提交回滚git log 查看提交日志的 commit 号git reset –hard text.commit 回滚到 commit 号对应的版本git rm text.name 清空本地文件git commit -m 清空仓库工作流-仓库文件替换工作区和暂存区(危险操作)git checkout HEAD text.commit工作流-正常提交git add . 提交到暂存区git status 查看修改状态git commit -m ‘备注’ 将暂存区的修改提交到本地仓库的操作git push origin master 提交到远程仓库ssh keyssh-keygen -t rsa -P ‘’ 本地生成 rsa 公钥公钥复制到 github ssh settingssh -T git@github.com 判断是否为通添加远程仓库git remote add origin git@github.com:xxxxxxxx.gitgit push -u origin master (-u) 默认本地 master 和远程本地 master 关联git remote remove origin 取消远程关联克隆仓库远程代码拷贝到本地git clone ig:reps/docs_couple_training.git标签管理git tag 查看所有标签git tag name 创建标签git tag -a name -m ‘comment’ 指定提交信息git tag -d name 删除标签git push origin name 标签发布分支管理git branch 查看分支git branch ayden 创建 ayden 分支git checkout 切换分支git merge ayden 将 ayden 分支的修改合并到 mastergit branch -d ayden 删除 ayden 分支总结工作流：工作区-&gt;暂存区-&gt;版本库-&gt;远程仓库初始化：git init -&gt; git add -&gt; git commit远程仓库：git remote add -&gt; git pull -&gt; git push -&gt; git clone分支管理：git branch -&gt; git checkout -&gt; git merge标签管理：git tag -&gt; git push]]></content>
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+            <tag> axios </tag>
+            
+            <tag> token </tag>
+            
+            <tag> 跨域 </tag>
+            
+            <tag> 拦截器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Git 版本控制</title>
+      <link href="/2018/11/11/Git%20%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
+      <url>/2018/11/11/Git%20%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</url>
+      
+        <content type="html"><![CDATA[<!-- build time:Fri Nov 23 2018 10:54:08 GMT+0800 (China Standard Time) --><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><ol><li>git init 用来初始化本地 Git 仓库，可进行一系列 git 操作</li><li>git init –bare 用来初始化远程 Git 裸仓库，用来记录提交的修改信息 ，不可进行一系列 git 操作</li></ol><h3 id="工作流-暂存区回滚"><a href="#工作流-暂存区回滚" class="headerlink" title="工作流-暂存区回滚"></a>工作流-暂存区回滚</h3><a id="more"></a><ol><li>git add . 提交到暂存区</li><li>git reset HEAD text.name 清空暂存区的修改</li><li>git checkout – text.name 工作区回滚到修改之前</li></ol><h3 id="工作流-提交回滚"><a href="#工作流-提交回滚" class="headerlink" title="工作流-提交回滚"></a>工作流-提交回滚</h3><ol><li>git log 查看提交日志的 commit 号</li><li>git reset –hard text.commit 回滚到 commit 号对应的版本</li><li>git rm text.name 清空本地文件</li><li>git commit -m 清空仓库</li></ol><h3 id="工作流-仓库文件替换工作区和暂存区-危险操作"><a href="#工作流-仓库文件替换工作区和暂存区-危险操作" class="headerlink" title="工作流-仓库文件替换工作区和暂存区(危险操作)"></a>工作流-仓库文件替换工作区和暂存区(危险操作)</h3><ol><li>git checkout HEAD text.commit</li></ol><h3 id="工作流-正常提交"><a href="#工作流-正常提交" class="headerlink" title="工作流-正常提交"></a>工作流-正常提交</h3><ol><li>git add . 提交到暂存区</li><li>git status 查看修改状态</li><li>git commit -m ‘备注’ 将暂存区的修改提交到本地仓库的操作</li><li>git push origin master 提交到远程仓库</li></ol><h3 id="ssh-key"><a href="#ssh-key" class="headerlink" title="ssh key"></a>ssh key</h3><ol><li>ssh-keygen -t rsa -P ‘’ 本地生成 rsa 公钥</li><li>公钥复制到 github ssh setting</li><li>ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a> 判断是否为通</li></ol><h3 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h3><ol><li>git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:xxxxxxxx.git</li><li>git push -u origin master (-u) 默认本地 master 和远程本地 master 关联</li><li>git remote remove origin 取消远程关联</li></ol><h3 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h3><ol><li>远程代码拷贝到本地</li><li>git clone ig:reps/docs_couple_training.git</li></ol><h3 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h3><ol><li>git tag 查看所有标签</li><li>git tag name 创建标签</li><li>git tag -a name -m ‘comment’ 指定提交信息</li><li>git tag -d name 删除标签</li><li>git push origin name 标签发布</li></ol><h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><ol><li>git branch 查看分支</li><li>git branch ayden 创建 ayden 分支</li><li>git checkout 切换分支</li><li>git merge ayden 将 ayden 分支的修改合并到 master</li><li>git branch -d ayden 删除 ayden 分支</li></ol><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li>工作流：<ul><li>工作区-&gt;暂存区-&gt;版本库-&gt;远程仓库</li></ul></li><li>初始化：<ul><li>git init -&gt; git add -&gt; git commit</li></ul></li><li>远程仓库：<ul><li>git remote add -&gt; git pull -&gt; git push -&gt; git clone</li></ul></li><li>分支管理：<ul><li>git branch -&gt; git checkout -&gt; git merge</li></ul></li><li>标签管理：<ul><li>git tag -&gt; git push</li></ul></li></ul><!-- rebuild by neat -->]]></content>
+      
+      
       <categories>
-        <category>笔记</category>
+          
+          <category> 笔记 </category>
+          
       </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[PHP 会话控制]]></title>
-    <url>%2F2018%2F11%2F11%2FPHP%20%E4%BC%9A%E8%AF%9D%E6%8E%A7%E5%88%B6%2F</url>
-    <content type="text"><![CDATA[http超文本传输协议，网络协议请求和响应模式，用户请求，服务器响应最大的特点：无连接，无状态cookie网景公司 93 年发明的一种技术，用来保持客户端和服务端保持连接状态保存在客户端中，主要分为 内存cookie （保存在内存中，浏览器关闭就消失）和 硬盘cookie （保存在硬盘中，有一个过期时间，除非手动清除或者到了过期时间，否则长期存在）php 设置 cookie：setcookie(name,value,expire),setrawcookie()session会话就是服务器与浏览器认识的这段时间保存在服务端]]></content>
+      
+      
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>PHP 会话控制</title>
+      <link href="/2018/11/11/PHP%20%E4%BC%9A%E8%AF%9D%E6%8E%A7%E5%88%B6/"/>
+      <url>/2018/11/11/PHP%20%E4%BC%9A%E8%AF%9D%E6%8E%A7%E5%88%B6/</url>
+      
+        <content type="html"><![CDATA[<!-- build time:Fri Nov 23 2018 10:54:08 GMT+0800 (China Standard Time) --><h3 id="http"><a href="#http" class="headerlink" title="http"></a>http</h3><ul><li>超文本传输协议，网络协议</li><li>请求和响应模式，用户请求，服务器响应<a id="more"></a></li><li>最大的特点：无连接，无状态</li></ul><h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><ul><li>网景公司 93 年发明的一种技术，用来保持客户端和服务端保持连接状态</li><li>保存在客户端中，主要分为 内存cookie （保存在内存中，浏览器关闭就消失）和 硬盘cookie （保存在硬盘中，有一个过期时间，除非手动清除或者到了过期时间，否则长期存在）</li><li>php 设置 cookie：<ul><li>setcookie(name,value,expire),</li><li>setrawcookie()</li></ul></li></ul><h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><ul><li>会话就是服务器与浏览器认识的这段时间</li><li>保存在服务端</li></ul><!-- rebuild by neat -->]]></content>
+      
+      
       <categories>
-        <category>笔记</category>
+          
+          <category> 笔记 </category>
+          
       </categories>
-      <tags>
-        <tag>PHP</tag>
-        <tag>会话控制</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> PHP </tag>
+            
+            <tag> 会话控制 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+  
+  
 </search>
