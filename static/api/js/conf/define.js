@@ -1,3 +1,3 @@
-// build time:Sat Nov 24 2018 11:15:19 GMT+0800 (China Standard Time)
+// build time:Mon Nov 26 2018 10:31:10 GMT+0800 (China Standard Time)
 window._bd_share_main?window._bd_share_is_recently_loaded=!0:(window._bd_share_is_recently_loaded=!1,window._bd_share_main={version:"2.0",jscfg:{domain:{staticUrl:"http://bdimg.share.baidu.com/"}}});
 //rebuild by neat 
