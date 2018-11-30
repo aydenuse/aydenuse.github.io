@@ -1,6 +1,9 @@
 ---
 title: this.$router 与 this.$route 区别
 date: 2018-11-30 14:09:33
+comments: true
+categories:
+- Vue
 tags:
 - Vue
 ---
