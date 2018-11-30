@@ -12,10 +12,16 @@ tags:
 - 拦截器
 ---
 
-本文为原创文章，如需转载，请注明出处。
-##  问题背景：
+
+##  错误背景：
+
+
 想做注册登录 ` TOKEN ` 验证，查了一些资料，主流的验证机制 : 用户在首次登录成功时从后端获取一个 ` token `，然后在访问 **登陆之后才有权限** 访问的组件中，每次调用后端的 API 时，请求头中必须携带这个 ` token ` 作为验证。
+
+
 ##  涉及知识点：
+
+
 * 前端：
 	* 跨域配置
 	* vue axios 请求拦截器 `this.$axios.interceptors.request `
@@ -23,7 +29,10 @@ tags:
 * 后端：
 	* 跨域配置
 	* 响应头配置：`Access-Control-Expose-Headers: <header-name>, <header-name>, ...`
-## 问题描述：
+
+
+## 错误描述：
+
 
 #### 后端代码如下：
 前端访问后端的 API 时，后端设置响应头
@@ -38,11 +47,13 @@ class Test extends Controller
     }
 }
 ```
+
 ####   前端请求如下：
 请求拦截：先查找 `localStorage` 是否有 ` token `字段，有则添加到请求头 
 响应拦截：获取响应头中的 `token` 字段，并存储到`localStorage` 
 代码如下：
 test 组件（test.vue）
+
 ```javascript
 methods: {
       sendAjax: function () {
@@ -79,8 +90,10 @@ methods: {
           }
         )
       }
+      
 ```
-请求之后：
+
+#### 请求之后：
 ![在这里插入图片描述](http://pis4qk1vz.bkt.clouddn.com/setHeaderSuccess.png)
 是不是以为搞定了？接下来是见证奇迹的时刻 ~
 ![在这里插入图片描述](http://pis4qk1vz.bkt.clouddn.com/whereToken.png)
@@ -98,6 +111,9 @@ if(res.data.token){
 ```javascript
 header('Access-Control-Expose-Headers: token');  // 坑！服务器 headers 白名单，可以让客户端进行访问操作的属性
 ```
+
+## 错误分析
+
 #### MDN 给的解释是这样的：
 **响应首部 Access-Control-Expose-Headers 列出了哪些首部可以作为响应的一部分暴露给外部**
 我理解的意思就是可以供外部去操作，
@@ -112,18 +128,19 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 ```
 #### 上成功图示：
 ![在这里插入图片描述](http://pis4qk1vz.bkt.clouddn.com/success.png)
-### 总结：
+
+
+## 错误总结：
+
 
 ```javascript
 header('Access-Control-Allow-Headers: token');
 header('Access-Control-Expose-Headers: token')
 ```
-
-对比两个 header 字段：我比较浅显的做了下区别就是：
+>对比两个 header 字段：我比较浅显的做了下区别就是：
 一个是：**允许请求头中携带，另一个是：允许访问携带的该属性。**
 就像客人来了家里做客，
 一个是：**我允许你来我家，一个是：我允许你来我家里吃饭、睡觉 ...** 
 （如有理解偏差请指正）
-
 
 本文有参考阮大哥的 [跨域资源共享 CORS 详解](http://www.ruanyifeng.com/blog/2016/04/cors.html)
