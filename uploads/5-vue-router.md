@@ -1,5 +1,5 @@
 ---
-title: 5-vue-router
+title: this.$router 与 this.$route 区别
 date: 2018-11-30 14:09:33
 tags:
 - Vue
