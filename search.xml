@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[5-vue-router]]></title>
+    <url>%2F5-vue-router.html</url>
+    <content type="text"><![CDATA[this.$router：表示全局路由器对象，项目中通过router路由参数注入路由之后，在任何一个页面都可以通过此方法获取到路由器对象，并调用其push(), go()等方法；this.$route:表示当前正在用于跳转的路由器对象，可以调用其name、path、query、params等方法；]]></content>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[git clone 错误记录]]></title>
     <url>%2F4-git-clone.html</url>
     <content type="text"><![CDATA[错误背景Git 工作流，克隆远程仓库代码失败。错误描述输入：git clone ssh:XXXXXXX.giterror：warning: remote HEAD refers to nonexistent ref, unable to checkout.google 此错误，按照答案去远程服务器一顿操作：git branchxxxgit checkout xxxerror：This operation must be run in a work tree错误解决git clone -b xxx ssh:/XXXXXXXX.git错误总结git init –bare 初始化的是裸仓库，一般作为远程仓库，保存的是修改git init 初始化的是完整的仓库，一般做本地仓库使用，保存的是整个项目资源裸仓库不支持任何 git 操作，这也是第二个错误的原因，因为不允许在裸仓库切换分支，所以解决的思路就是直接克隆指定的分支。]]></content>
