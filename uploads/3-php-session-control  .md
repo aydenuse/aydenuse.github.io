@@ -1,5 +1,5 @@
 ---
-title: PHP 会话控制
+title: 会话控制（PHP）
 date: 2018-11-11 14:42:56
 comments: true
 categories:
