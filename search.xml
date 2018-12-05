@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[微信公众号基本配置 TOKEN 验证失败]]></title>
+    <url>%2F6-wechat-token.html</url>
+    <content type="text"><![CDATA[错误背景微信公众号开发基本配置时，以下情况确认无误URL 确认无误，外网可以访问到内网穿透端口为 80 （我采用的是本地内网穿透natapp）URL 实名认证TOKEN 前后填写一致错误解决最后在echo $echoStr前面加一句ob_clean();，代码如下：12345678910public function valid() &#123; $echoStr = $_GET["echostr"]; if($this-&gt;checkSignature())&#123; header('content-type:text'); ob_clean(); echo $echoStr; exit; &#125; &#125;错误总结因为我用的是 thinkphp 框架，在echo $echoStr之前可能有一些你不知道的输出到”输出缓冲区”，需要用清理服务器端信息的缓存]]></content>
+      <categories>
+        <category>错误笔记</category>
+      </categories>
+      <tags>
+        <tag>wechat</tag>
+        <tag>公众号</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[this.$router 与 this.$route 区别]]></title>
     <url>%2F5-vue-router.html</url>
     <content type="text"><![CDATA[this.$router：表示全局路由器对象，项目中通过router路由参数注入路由之后，在任何一个页面都可以通过此方法获取到路由器对象，并调用其push(), go()等方法；this.$route:表示当前正在用于跳转的路由器对象，可以调用其name、path、query、params等方法；]]></content>
