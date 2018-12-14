@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.liuliuxiaogege.com/3-php-session.html</loc>
+    <lastmod>2018-12-13T02:52:44.206Z</lastmod>
+  </url>  <url>
     <loc>https://www.liuliuxiaogege.com/6-wechat-token.html</loc>
     <lastmod>2018-12-05T07:32:48.332Z</lastmod>
   </url>  <url>
@@ -9,9 +12,6 @@
   </url>  <url>
     <loc>https://www.liuliuxiaogege.com/4-git-clone.html</loc>
     <lastmod>2018-11-30T02:50:44.243Z</lastmod>
-  </url>  <url>
-    <loc>https://www.liuliuxiaogege.com/3-php-session.html</loc>
-    <lastmod>2018-11-30T02:50:44.237Z</lastmod>
   </url>  <url>
     <loc>https://www.liuliuxiaogege.com/1-vue-header.html</loc>
     <lastmod>2018-11-30T02:41:44.222Z</lastmod>
