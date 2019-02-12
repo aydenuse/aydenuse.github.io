@@ -50,6 +50,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Git 工作常用]]></title>
+    <url>%2F2-git-version.html</url>
+    <content type="text"><![CDATA[初始化git init 用来初始化本地 Git 仓库，可进行一系列 git 操作git init –bare 用来初始化远程 Git 裸仓库，用来记录提交的修改信息 ，不可进行一系列 git 操作工作流-暂存区回滚git add . 提交到暂存区git reset HEAD text.name 清空暂存区的修改git checkout – text.name 工作区回滚到修改之前工作流-提交回滚git log 查看提交日志的 commit 号git reset –hard text.commit 回滚到 commit 号对应的版本git rm text.name 清空本地文件git commit -m 清空仓库工作流-仓库文件替换工作区和暂存区(危险操作)git checkout HEAD text.commit工作流-正常提交git add . 提交到暂存区git status 查看修改状态git commit -m ‘备注’ 将暂存区的修改提交到本地仓库的操作git push origin master 提交到远程仓库ssh keyssh-keygen -t rsa -P ‘’ 本地生成 rsa 公钥公钥复制到 github ssh settingssh -T git@github.com 判断是否为通添加远程仓库git remote add origin git@github.com:xxxxxxxx.gitgit push -u origin master (-u) 默认本地 master 和远程本地 master 关联git remote remove origin 取消远程关联克隆仓库远程代码拷贝到本地git clone ig:reps/docs_couple_training.git标签管理git tag 查看所有标签git tag name 创建标签git tag -a name -m ‘comment’ 指定提交信息git tag -d name 删除标签git push origin name 标签发布分支管理git branch 查看分支git branch ayden 创建 ayden 分支git checkout 切换分支git merge ayden 将 ayden 分支的修改合并到 mastergit branch -d ayden 删除 ayden 分支总结工作流：工作区-&gt;暂存区-&gt;版本库-&gt;远程仓库初始化：git init -&gt; git add -&gt; git commit远程仓库：git remote add -&gt; git pull -&gt; git push -&gt; git clone分支管理：git branch -&gt; git checkout -&gt; git merge标签管理：git tag -&gt; git push]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[会话控制（PHP）]]></title>
     <url>%2F3-php-session.html</url>
     <content type="text"><![CDATA[http超文本传输协议，网络协议请求和响应模式，用户请求，服务器响应最大的特点：无连接，无状态cookie网景公司 93 年发明的一种技术，用来保持客户端和服务端保持连接状态保存在客户端中，主要分为 内存cookie （保存在内存中，浏览器关闭就消失）和 硬盘cookie （保存在硬盘中，有一个过期时间，除非手动清除或者到了过期时间，否则长期存在）php 设置 cookie：setcookie(name,value,expire),setrawcookie()session会话就是服务器与浏览器认识的这段时间保存在服务端]]></content>
@@ -62,9 +73,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Git 工作常用]]></title>
-    <url>%2F2-git-version.html</url>
-    <content type="text"><![CDATA[初始化git init 用来初始化本地 Git 仓库，可进行一系列 git 操作git init –bare 用来初始化远程 Git 裸仓库，用来记录提交的修改信息 ，不可进行一系列 git 操作工作流-暂存区回滚git add . 提交到暂存区git reset HEAD text.name 清空暂存区的修改git checkout – text.name 工作区回滚到修改之前工作流-提交回滚git log 查看提交日志的 commit 号git reset –hard text.commit 回滚到 commit 号对应的版本git rm text.name 清空本地文件git commit -m 清空仓库工作流-仓库文件替换工作区和暂存区(危险操作)git checkout HEAD text.commit工作流-正常提交git add . 提交到暂存区git status 查看修改状态git commit -m ‘备注’ 将暂存区的修改提交到本地仓库的操作git push origin master 提交到远程仓库ssh keyssh-keygen -t rsa -P ‘’ 本地生成 rsa 公钥公钥复制到 github ssh settingssh -T git@github.com 判断是否为通添加远程仓库git remote add origin git@github.com:xxxxxxxx.gitgit push -u origin master (-u) 默认本地 master 和远程本地 master 关联git remote remove origin 取消远程关联克隆仓库远程代码拷贝到本地git clone ig:reps/docs_couple_training.git标签管理git tag 查看所有标签git tag name 创建标签git tag -a name -m ‘comment’ 指定提交信息git tag -d name 删除标签git push origin name 标签发布分支管理git branch 查看分支git branch ayden 创建 ayden 分支git checkout 切换分支git merge ayden 将 ayden 分支的修改合并到 mastergit branch -d ayden 删除 ayden 分支总结工作流：工作区-&gt;暂存区-&gt;版本库-&gt;远程仓库初始化：git init -&gt; git add -&gt; git commit远程仓库：git remote add -&gt; git pull -&gt; git push -&gt; git clone分支管理：git branch -&gt; git checkout -&gt; git merge标签管理：git tag -&gt; git push]]></content>
+    <title><![CDATA[将博客搬至CSDN]]></title>
+    <url>%2F7-csdn.html</url>
+    <content type="text"><![CDATA[博客搬家到 https://blog.csdn.net/kaw19950302]]></content>
       <categories>
         <category>笔记</category>
       </categories>
